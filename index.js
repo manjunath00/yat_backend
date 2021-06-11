@@ -6,15 +6,14 @@ const dotenv = require("dotenv");
 
 const user = require("./routes/user");
 
+const { PORT, MONGODB_URI } = require("./env");
+
 dotenv.config();
 app.use(morgan("combined"));
 app.use(express.json());
 
-const PORT = 8000;
-const mongoDB = "mongodb://127.0.0.1/todoapp";
-
 mongoose.connect(
-  mongoDB,
+  MONGODB_URI,
   { useNewUrlParser: true, useUnifiedTopology: true },
   () => {
     console.log("Database connected");
