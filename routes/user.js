@@ -58,6 +58,8 @@ app.post("/authenticate", (req, res) => {
 app.patch("/:id", authenticateWebToken, (req, res) => {
   const { userName, email, password, confirmPassword, role } = req.body;
 
+  // User.setPassword();
+
   User.findById(req.params.id).exec(function (err, person) {
     if (err) {
       return err;

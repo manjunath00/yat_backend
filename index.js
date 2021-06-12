@@ -5,6 +5,7 @@ const mongoose = require("mongoose");
 const dotenv = require("dotenv");
 
 const user = require("./routes/user");
+const task = require("./routes/task");
 
 const { PORT, MONGODB_URI } = require("./env");
 
@@ -25,6 +26,8 @@ app.get("/", (req, res) => {
 });
 
 app.use("/api/user", user);
+
+app.use("/api/task", task);
 
 app.listen(PORT, function () {
   console.log(`Server started. localhost:${PORT}`);

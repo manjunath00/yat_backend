@@ -1,5 +1,4 @@
 const mongoose = require("mongoose");
-const crypto = require("crypto");
 
 const userSchema = new mongoose.Schema(
   {
@@ -22,6 +21,7 @@ const userSchema = new mongoose.Schema(
       default: 0,
     },
     password: String,
+    tasks: [{ type: mongoose.Schema.Types.ObjectId, ref: "Task" }],
   },
   { timeStamps: true }
 );

@@ -2,6 +2,18 @@ const jwt = require("jsonwebtoken");
 
 const { EXPIRES_IN, TOKEN_SECRET } = require("../env");
 
+const getTask = (req) => {
+  const { name, description, completed } = req.body;
+  const { _id } = req.user;
+
+  return {
+    name,
+    author: _id,
+    description,
+    completed,
+  };
+};
+
 /* Extract userName, email & password from req body */
 const getUser = (body) => {
   const { userName, email, password } = body;
@@ -39,7 +51,8 @@ const authenticateWebToken = (req, res, next) => {
 };
 
 module.exports = {
-  getUser: getUser,
+  getUser,
+  getTask,
   generateAccessToken,
   authenticateWebToken,
 };
