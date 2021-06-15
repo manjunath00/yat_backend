@@ -2,6 +2,7 @@ const jwt = require("jsonwebtoken");
 
 const { EXPIRES_IN, TOKEN_SECRET } = require("../env");
 
+/* new task */
 const getTask = (req) => {
   const { name, description, completed } = req.body;
   const { _id } = req.user;
@@ -12,6 +13,26 @@ const getTask = (req) => {
     description,
     completed,
   };
+};
+
+/* edit task */
+const editTask = (req) => {
+  const { name = "", description = "", completed = "" } = req.body;
+
+  const taskDetails = {};
+  if (name) {
+    taskDetails.name = name;
+  }
+
+  if (description) {
+    taskDetails.description = description;
+  }
+
+  if (completed != null || undefined) {
+    taskDetails.completed = completed;
+  }
+
+  return taskDetails;
 };
 
 /* Extract userName, email & password from req body */
@@ -43,16 +64,16 @@ const authenticateWebToken = (req, res, next) => {
     if (err) {
       return res.status(403).send({ message: "Invalid credentials " });
     }
-
+    // console.log("User ", user);
     req.user = user;
   });
-
   next();
 };
 
 module.exports = {
   getUser,
   getTask,
+  editTask,
   generateAccessToken,
   authenticateWebToken,
 };

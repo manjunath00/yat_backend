@@ -7,6 +7,14 @@ const dotenv = require("dotenv");
 const user = require("./routes/user");
 const task = require("./routes/task");
 
+const {
+  getUser,
+  getTask,
+  editTask,
+  generateAccessToken,
+  authenticateWebToken,
+} = require("./util/util");
+
 const { PORT, MONGODB_URI } = require("./env");
 
 dotenv.config();
@@ -27,7 +35,7 @@ app.get("/", (req, res) => {
 
 app.use("/api/user", user);
 
-app.use("/api/task", task);
+app.use("/api/task", authenticateWebToken, task);
 
 app.listen(PORT, function () {
   console.log(`Server started. localhost:${PORT}`);
