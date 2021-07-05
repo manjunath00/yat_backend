@@ -62,6 +62,7 @@ const authenticateWebToken = (req, res, next) => {
 
   jwt.verify(token, TOKEN_SECRET, (err, user) => {
     if (err) {
+      console.error(err);
       return res.status(403).send({ message: "Invalid credentials " });
     }
     // console.log("User ", user);
