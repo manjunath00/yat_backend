@@ -82,4 +82,16 @@ app.patch("/:taskId", authenticateWebToken, (req, res) => {
   });
 });
 
+/* Delete a task */
+
+app.delete("/:taskId", (req, res) => {
+  Task.remove({ _id: req.params.id }, function (err, doc) {
+    if (err) {
+      return res.send({ message: "Invalid request" });
+    }
+
+    return res.send(doc);
+  });
+});
+
 module.exports = app;
